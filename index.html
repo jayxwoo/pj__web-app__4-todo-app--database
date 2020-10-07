@@ -9,8 +9,8 @@
 
     <!-- custom meta tags -->
     <meta name="author" content="JM Woo">
-    <meta name="description" content="short description about this webpage">
-    <meta name="keywords" content="keywords, separated, with, comma">
+    <meta name="description" content="Todo app connected to firebase database">
+    <meta name="keywords" content="todo, tasks, todo app, tasks app, productivity">
 
     <!-- font links -->
     <!-- <link rel="stylesheet" href="./fonts/fonts.css" media="none" onload="if(media!='all')media='all'"> -->
@@ -19,10 +19,40 @@
     <link rel="stylesheet" href="./css/style.css" type="text/css">
 
     <!-- title -->
-    <title></title>
+    <title>4. Todo app (database)</title>
 </head>
 
-<body>
+<body class="body">
+    <div class="app-container">
+        <header class="header">
+            <h1 class="app-title">ToDo (data)</h1>
+            <form action="" class="dark-form">
+                <label for="dark" class="dark-label">Dark</label>
+                <input type="checkbox" name="dark" id="dark" class="dark-input">
+            </form>
+        </header>
+        <div class="search-container">
+            <form action="" class="search-form">
+                <label for="search">Search todo</label>
+                <input type="text" name="search" id="search" class="search-input" placeholder="search todo here..">
+            </form>
+        </div>
+        <main class="main">
+            <ul class="todo-group">
+                <li class="todo-item">
+                    <p class="todo-text">work on the todo app project</p>
+                    <button class="todo-button"></button>
+                </li>
+            </ul>
+        </main>
+        <div class="add-container">
+            <form action="" class="add-form">
+                <label for="add">Add todo</label>
+                <input type="text" name="add" id="add" class="add-input" placeholder="add todo here..">
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
 
     <!-- js links -->
     <script type="module" src="./js/script.js"></script>
