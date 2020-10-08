@@ -26,17 +26,22 @@
 [layouts]
 ======================= */
 /* body & app-container */
-.body { font-family: Helvetica; background-image: url(../img/bg.jpg); width: 100%; min-height: 100vh; background-size: cover; background-position: center; background-repeat: no-repeat; display: flex; justify-content: center; align-items: center; }
-.app-container { background-color: var(--main); padding: 40px; border-radius: 30px; position: relative; }
+.body { font-family: Helvetica; background-image: url(../img/bg.jpg); width: 100vw; min-height: 100vh; background-size: cover; background-position: center; background-repeat: no-repeat; display: flex; justify-content: center; align-items: center; }
+.app-container { background-color: var(--main); padding: 30px; border-radius: 30px; position: relative; }
 
 /* header */
 .header { text-align: center; }
-.app-title { font-size: 1.5rem; }
+.app-title { font-size: 1.25rem; color: var(--contrast); }
 
 /* header - dark toggle */
-.dark-toggle-form { display: flex; position: absolute; top: 10px; right: 10px; }
+.dark-toggle-form { display: flex; position: absolute; top: 15px; right: 15px; }
 .dark-toggle-label { font-size: 0.8rem; color: var(--contrast); display: flex; justify-content: center; align-items: center; padding-right: 5px; font-weight: bold; }
 .dark-toggle-input { width: 44px; height: 24px; appearance: none; background-color: var(--lightgrey); outline: none; border-radius: 24px; box-shadow: inset 0 0 5px var(--black); transition: all ease-in-out 0.3s; position: relative; }
 .dark-toggle-input:checked { background-color: var(--blue); }
 .dark-toggle-input::before { content: ''; position: absolute; top: 0; left: 0; width: 24px; height: 24px; background-color: var(--contrast); border-radius: 50%; transition: all ease-in-out 0.3s; transform: scale(1.1); }
 .dark-toggle-input:checked::before { left: 20px; }
+
+/* search todo */
+.search-todo-form { width: 100%; margin-top: 20px; }
+.search-todo-input { width: 100%; outline: none; border: none; padding: 5px; border-radius: 5px; color: var(--blue); font-weight: bold; }
+.search-todo-input::placeholder { font-weight: lighter; color: var(--blue); }
