@@ -14,6 +14,7 @@
     --black: rgba(0, 0, 0, 0.7);
     --lightgrey: rgba(198, 198, 198, 0.7);
     --blue: rgba(0, 153, 255, 0.7);
+    --darkblue: rgba(0, 125, 209, 0.7);
     --red: rgba(255, 15, 15, 0.7);
 }
 
@@ -24,7 +25,7 @@
 
 
 /* ====================
-[layouts]
+[layouts & styles]
 ======================= */
 /* body & app-container */
 .body { font-family: Helvetica; background-image: url(../img/bg.jpg); width: 100vw; min-height: 100vh; background-size: cover; background-position: center; background-repeat: no-repeat; display: flex; justify-content: center; align-items: center; }
@@ -43,12 +44,12 @@
 .dark-toggle-input:checked::before { left: 20px; }
 
 /* search todo */
-.search-todo-form { width: 100%; margin-top: 20px; }
+.search-todo-form { width: 100%; margin-top: 25px; }
 .search-todo-input { width: 100%; outline: none; border: none; padding: 10px; border-radius: 5px; color: var(--blue); font-weight: bold; font-size: 1rem; }
-.search-todo-input::placeholder { font-weight: lighter; color: var(--blue); }
+.search-todo-input::placeholder { font-weight: lighter; }
 
 /* todo list */
-.main { width: 100%; margin-top: 20px; }
+.main { width: 100%; margin-top: 25px; }
 .todo-group { width: 100%; }
 .todo-item { width: 100%; margin-bottom: 5px; background-color: var(--contrast); color: var(--main); display: flex; padding: 10px; border-radius: 5px; }
 .todo-text { width: 100%; font-size: 1rem; margin-right: 5px; }
@@ -56,3 +57,11 @@
 .todo-delete-icon { color: var(--main); font-size: 1rem; transition: all ease-in-out 0.3s; }
 .todo-delete-icon:hover { color: var(--red); }
 .todo-delete-btn:active { transform: translate(1px, 1px); }
+
+/* add todo */
+.add-todo-form { width: 100%; display: flex; margin-top: 25px; }
+.add-todo-input { width: 100%; margin-right: 5px; border: none; outline: none; padding: 10px; font-size: 1rem; font-weight: bold; color: var(--blue); border-radius: 5px;  }
+.add-todo-input::placeholder { font-weight: lighter }
+.add-todo-btn { border: none; outline: none; background-color: var(--blue); color: white; padding: 0 10px; border-radius: 5px; cursor: pointer; }
+.add-todo-btn:hover { background-color: var(--darkblue); }
+.add-todo-btn:active { transform: translate(1px, 1px); }
