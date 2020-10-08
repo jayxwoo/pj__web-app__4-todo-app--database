@@ -29,7 +29,7 @@
         <header class="header">
             <h1 class="app-title">ToDo (data)</h1>
             <form action="" class="dark-toggle-form">
-                <label for="darkToggle" class="dark-toggle-label">Dark</label>
+                <label for="darkToggle" class="dark-toggle-label a11y-hidden-one">Dark</label>
                 <input type="checkbox" name="darkToggle" id="darkToggle" class="dark-toggle-input">
             </form>
         </header>
@@ -45,7 +45,15 @@
             <ul class="todo-group">
                 <li class="todo-item">
                     <p class="todo-text">work on the todo app project</p>
-                    <button class="todo-delete-btn"><i class="fas fa-trash-alt todo-icon"></i></button>
+                    <button class="todo-delete-btn"><i class="fas fa-trash-alt todo-delete-icon"></i></button>
+                </li>
+                <li class="todo-item">
+                    <p class="todo-text">shop groceries</p>
+                    <button class="todo-delete-btn"><i class="fas fa-trash-alt todo-delete-icon"></i></button>
+                </li>
+                <li class="todo-item">
+                    <p class="todo-text">lawn mowing</p>
+                    <button class="todo-delete-btn"><i class="fas fa-trash-alt todo-delete-icon"></i></button>
                 </li>
             </ul>
         </main>
