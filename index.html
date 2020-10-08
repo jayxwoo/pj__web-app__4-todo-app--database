@@ -16,6 +16,7 @@
     <!-- <link rel="stylesheet" href="./fonts/fonts.css" media="none" onload="if(media!='all')media='all'"> -->
 
     <!-- css links -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
     <link rel="stylesheet" href="./css/style.css" type="text/css">
 
     <!-- title -->
@@ -31,27 +32,23 @@
                 <input type="checkbox" name="dark" id="dark" class="dark-input">
             </form>
         </header>
-        <div class="search-container">
-            <form action="" class="search-form">
-                <label for="search">Search todo</label>
-                <input type="text" name="search" id="search" class="search-input" placeholder="search todo here..">
-            </form>
-        </div>
+        <form action="" class="search-form">
+            <label for="search">Search todo</label>
+            <input type="text" name="search" id="search" class="search-input" placeholder="search todo here..">
+        </form>
         <main class="main">
             <ul class="todo-group">
                 <li class="todo-item">
                     <p class="todo-text">work on the todo app project</p>
-                    <button class="todo-button"></button>
+                    <button class="todo-btn"><i class="fas fa-trash-alt todo-icon"></i></button>
                 </li>
             </ul>
         </main>
-        <div class="add-container">
-            <form action="" class="add-form">
-                <label for="add">Add todo</label>
-                <input type="text" name="add" id="add" class="add-input" placeholder="add todo here..">
-                <button type="submit">Submit</button>
-            </form>
-        </div>
+        <form action="" class="add-form">
+            <label for="add">Add todo</label>
+            <input type="text" name="add" id="add" class="add-input" placeholder="add todo here..">
+            <button type="submit" class="add-btn">Add</button>
+        </form>
     </div>
 
     <!-- js links -->
