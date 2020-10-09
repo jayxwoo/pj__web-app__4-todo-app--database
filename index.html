@@ -16,7 +16,9 @@
     <!-- <link rel="stylesheet" href="./fonts/fonts.css" media="none" onload="if(media!='all')media='all'"> -->
 
     <!-- css links -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+        integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+        crossorigin="anonymous" />
     <link rel="stylesheet" href="./css/style.css" type="text/css">
 
     <!-- title -->
@@ -37,7 +39,8 @@
         <!-- search todo -->
         <form action="" class="search-todo-form">
             <label for="searchTodo" class="search-todo-label a11y-hidden-one">Search todo</label>
-            <input type="text" name="searchTodo" id="searchTodo" class="search-todo-input" placeholder="search todo here..">
+            <input type="text" name="searchTodo" id="searchTodo" class="search-todo-input"
+                placeholder="search todo here..">
         </form>
 
         <!-- todo list -->
@@ -65,6 +68,36 @@
             <button type="submit" class="add-todo-btn">Add</button>
         </form>
     </div>
+
+    <!-- firebase SDK -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-firestore.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        var firebaseConfig = {
+            apiKey: "AIzaSyAi9lVujm5-3t1HOufG96prJnaCV9LxEJU",
+            authDomain: "todo-app--database.firebaseapp.com",
+            databaseURL: "https://todo-app--database.firebaseio.com",
+            projectId: "todo-app--database",
+            storageBucket: "todo-app--database.appspot.com",
+            messagingSenderId: "875323313286",
+            appId: "1:875323313286:web:52904952b4bc423b435507",
+            measurementId: "G-ZB8BNELKSR"
+        };
+        
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+        
+        // database reference
+        const db = firebase.firestore();
+    </script>
 
     <!-- js links -->
     <script type="module" src="./js/script.js"></script>
