@@ -6,19 +6,31 @@ import './default.js';
 
 // ========== script ==========
 // get todo
-class GetTodo {
+class TodoGetter {
     constructor(colName) {
         this.colName = colName;
     }
 
-    get = function () {
-        firebase.firestore().collection(this.colName).get().then((cols) => {
-            cols.docs.forEach((doc) => {
-                console.log(doc.data());
-            });
-        }).catch((err) => {
-            console.log(err);
+    get = async function () {
+        // get collection
+        const cols = await firebase.firestore().collection(this.colName).get();
+
+        // get documents
+        const docs = cols.docs;
+
+        // get properties
+        const props = [];
+        docs.forEach(doc => {
+            props.push(doc.data());
         });
+
+        // get todos
+        const todos = [];
+        props.forEach(prop => {
+            todos.push(prop.todo);
+        });
+
+        return todos;
     }
 }
 
@@ -27,8 +39,12 @@ class GetTodo {
 const main = function () {
     // get todo
     const colName = 'todos';
-    const getTodo = new GetTodo(colName);
-    getTodo.get();
+    const todoGetter = new TodoGetter(colName);
+    todoGetter.get().then(todos => {
+        console.log(todos);
+    }).catch(err => {
+        console.log(err);
+    });
 };
 
 main();
