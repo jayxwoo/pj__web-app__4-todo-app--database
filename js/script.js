@@ -3,6 +3,7 @@ import './default.js';
 
 // ========== DOM references ==========
 const todoGroup = document.querySelector('.todo-group');
+const addTodoForm = document.querySelector('.add-todo-form');
 
 // ========== script ==========
 // get todo
@@ -53,10 +54,41 @@ class TodoDisplayer {
     }
 }
 
+// create todo document
+class TodoDocCreater {
+    constructor(addTodoInputValue, now) {
+        this.addTodoInputValue = addTodoInputValue;
+        this.now = now;
+    }
+
+    create = function () {
+        const newDoc = {
+            todo: this.addTodoInputValue,
+            created_at: this.now
+        };
+        return newDoc;
+    }
+}
+
+// save todo to database
+class TodoSaver {
+    constructor(newDoc) {
+        this.newDoc = newDoc;
+    }
+
+    save = function () {
+        firebase.firestore().collection('todos').add(this.newDoc).then(() => {
+            console.log('A new document added.');
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+}
+
 // main
 const main = function () {
-    // initialise
-    const init = function () {
+    // update todo list
+    const updateTodoList = function () {
         // get todo
         const colName = 'todos';
         const todoGetter = new TodoGetter(colName);
@@ -68,7 +100,28 @@ const main = function () {
             console.log(err);
         });
     };
-    init();
+    updateTodoList();
+
+    // add todo
+    addTodoForm.addEventListener('submit', e => {
+        e.preventDefault();
+
+        // get todo input value
+        const addTodoInputValue = addTodoForm.addTodoInput.value;
+
+        // get the current time
+        const now = new Date();
+
+        // create todo document
+        const todoDocCreater = new TodoDocCreater(addTodoInputValue, now);
+        const newDoc = todoDocCreater.create();
+
+        // save todo
+        const todoSaver = new TodoSaver(newDoc);
+        todoSaver.save();
+        
+        addTodoForm.reset();
+    });
 };
 
 main();
