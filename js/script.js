@@ -1,12 +1,13 @@
 // ========== imports ==========
 import './default.js';
 
-// ========== DOM references ==========
+// ========== references ==========
 const todoGroup = document.querySelector('.todo-group');
 const addTodoForm = document.querySelector('.add-todo-form');
+const colName = 'todos';
 
 // ========== script ==========
-// get todo
+// get todo (from database)
 class TodoGetter {
     constructor(colName) {
         this.colName = colName;
@@ -48,12 +49,28 @@ class TodoDisplayer {
     }
 }
 
+// add todo (to database)
+class TodoAdder {
+    constructor(colName, newTodo) {
+        this.colName = colName;
+        this.newTodo = newTodo;
+    }
+
+    add = function () {
+        firebase.firestore().collection(this.colName).add(this.newTodo).then(() => {
+            console.log('A new todo added!');
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
+}
+
+
 // main
 const main = function () {
     // update todo
-    const update = function () {
+    const updateTodo = function () {
         // get todo
-        const colName = 'todos';
         const todoGetter = new TodoGetter(colName);
         todoGetter.get().then(props => {
             // remove todo from ui
@@ -62,12 +79,37 @@ const main = function () {
             // display todo
             const todoDisplayer = new TodoDisplayer(props, todoGroup);
             todoDisplayer.display();
-    
         }).catch(err => {
             console.log(err);
         });
     };
-    update();
+    updateTodo();
+
+    // add todo
+    addTodoForm.addEventListener('submit', e => {
+        e.preventDefault();
+        
+        // get input value
+        const todo = addTodoForm.addTodoInput.value;
+
+        // get the time
+        const created_at = new Date();
+
+        // create a property to be added to database
+        const newTodo = {
+            todo: todo,
+            created_at: created_at
+        };
+
+        // add todo to database
+        const todoAdder = new TodoAdder(colName, newTodo);
+        todoAdder.add();
+
+        // update todo
+        updateTodo();
+
+        addTodoForm.reset();
+    });
 };
 
 main();
