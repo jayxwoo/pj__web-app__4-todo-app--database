@@ -25,16 +25,49 @@ class TodoGetter {
             props.push(doc.data());
         });
 
-        console.log(props);
+        return props;
+    }
+}
+
+// display todo
+class TodoDisplayer {
+    constructor(props) {
+        this.props = props;
+        this.todoGroup = todoGroup;
+    }
+
+    display = function () {
+        this.props.forEach(prop => {
+            this.todoGroup.innerHTML += `
+                <li class="todo-item">
+                    <p class="todo-text">${prop.todo}</p>
+                    <button class="todo-delete-btn"><i class="fas fa-trash-alt todo-delete-icon"></i></button>
+                </li>
+            `;
+        });
     }
 }
 
 // main
 const main = function () {
-    // get todo (.get())
-    const colName = 'todos';
-    const todoGetter = new TodoGetter(colName);
-    todoGetter.get();
+    // update todo
+    const update = function () {
+        // get todo
+        const colName = 'todos';
+        const todoGetter = new TodoGetter(colName);
+        todoGetter.get().then(props => {
+            // remove todo from ui
+            todoGroup.innerHTML = '';
+    
+            // display todo
+            const todoDisplayer = new TodoDisplayer(props, todoGroup);
+            todoDisplayer.display();
+    
+        }).catch(err => {
+            console.log(err);
+        });
+    };
+    update();
 };
 
 main();
