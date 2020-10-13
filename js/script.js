@@ -19,33 +19,26 @@ class TodoGetter {
 
         // get documents
         const docs = col.docs;
-        
-        // get properties
-        const props = [];
-        docs.forEach(doc => {
-            props.push(doc.data());
-        });
 
-        return props;
+        return docs;
     }
 }
 
 // display todo
 class TodoDisplayer {
-    constructor(props) {
-        this.props = props;
+    constructor(prop, docId, todoGroup) {
+        this.prop = prop;
+        this.docId = docId;
         this.todoGroup = todoGroup;
     }
 
     display = function () {
-        this.props.forEach(prop => {
-            this.todoGroup.innerHTML += `
-                <li class="todo-item">
-                    <p class="todo-text">${prop.todo}</p>
-                    <button class="todo-delete-btn"><i class="fas fa-trash-alt todo-delete-icon"></i></button>
-                </li>
-            `;
-        });
+        this.todoGroup.innerHTML += `
+            <li class="todo-item" data-id="${this.docId}">
+                <p class="todo-text">${this.prop.todo}</p>
+                <button class="todo-delete-btn"><i class="fas fa-trash-alt todo-delete-icon"></i></button>
+            </li>
+        `;
     }
 }
 
@@ -58,8 +51,26 @@ class TodoAdder {
 
     add = function () {
         firebase.firestore().collection(this.colName).add(this.newTodo).then(() => {
-            console.log('A new todo added!');
+            console.log('Todo added!');
         }).catch((err) => {
+            console.log(err);
+        });
+    }
+}
+
+// delete todo (from database)
+class TodoDeleter {
+    constructor(colName, docId, updateTodo) {
+        this.colName = colName;
+        this.docId = docId;
+        this.updateTodo = updateTodo;
+    }
+
+    delete = function () {
+        firebase.firestore().collection(this.colName).doc(this.docId).delete().then(() => {
+            console.log('Todo deleted!')
+            this.updateTodo;
+        }).catch(err => {
             console.log(err);
         });
     }
@@ -72,13 +83,16 @@ const main = function () {
     const updateTodo = function () {
         // get todo
         const todoGetter = new TodoGetter(colName);
-        todoGetter.get().then(props => {
+        todoGetter.get().then(docs => {
             // remove todo from ui
             todoGroup.innerHTML = '';
     
-            // display todo
-            const todoDisplayer = new TodoDisplayer(props, todoGroup);
-            todoDisplayer.display();
+            // display todo & set custom attribute
+            docs.forEach(doc => {
+                const todoDisplayer = new TodoDisplayer(doc.data(), doc.id, todoGroup);
+                todoDisplayer.display();
+            });
+
         }).catch(err => {
             console.log(err);
         });
@@ -109,6 +123,17 @@ const main = function () {
         updateTodo();
 
         addTodoForm.reset();
+    });
+
+    // delete todo
+    todoGroup.addEventListener('click', e => {
+        if (e.target.tagName === 'I' || e.target.tagName === 'BUTTON') {
+            const docId = e.target.parentElement.parentElement.getAttribute('data-id');
+
+            // delete todo from databse & update ui
+            const todoDeleter = new TodoDeleter(colName, docId, updateTodo());
+            todoDeleter.delete();
+        };
     });
 };
 
