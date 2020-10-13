@@ -44,14 +44,16 @@ class TodoDisplayer {
 
 // add todo (to database)
 class TodoAdder {
-    constructor(colName, newTodo) {
+    constructor(colName, newTodo, updateTodo) {
         this.colName = colName;
         this.newTodo = newTodo;
+        this.updateTodo = updateTodo;
     }
 
     add = function () {
         firebase.firestore().collection(this.colName).add(this.newTodo).then(() => {
             console.log('Todo added!');
+            this.updateTodo;
         }).catch((err) => {
             console.log(err);
         });
@@ -115,12 +117,9 @@ const main = function () {
             created_at: created_at
         };
 
-        // add todo to database
-        const todoAdder = new TodoAdder(colName, newTodo);
+        // add todo to database & update todo
+        const todoAdder = new TodoAdder(colName, newTodo, updateTodo());
         todoAdder.add();
-
-        // update todo
-        updateTodo();
 
         addTodoForm.reset();
     });
@@ -130,7 +129,7 @@ const main = function () {
         if (e.target.tagName === 'I' || e.target.tagName === 'BUTTON') {
             const docId = e.target.parentElement.parentElement.getAttribute('data-id');
 
-            // delete todo from databse & update ui
+            // delete todo from databse & update todo
             const todoDeleter = new TodoDeleter(colName, docId, updateTodo());
             todoDeleter.delete();
         };
