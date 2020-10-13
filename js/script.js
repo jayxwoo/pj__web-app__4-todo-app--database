@@ -8,7 +8,27 @@ const colName = 'todos';
 
 // ========== script ==========
 
+// main
+const main = function () {
+    // add todo
+    addTodoForm.addEventListener('submit', e => {
+        e.preventDefault();
+        
+        // get todo input value
+        const todo = addTodoForm.addTodoInput.value;
+        console.log(todo.trim());
 
+        // get time
+        const created_at = new Date();
+        console.log(created_at);
+
+        // create a todo object (that will be saved to database)
+        const newTodo = {
+            
+        };
+    });
+};
+main();
 
 
 
