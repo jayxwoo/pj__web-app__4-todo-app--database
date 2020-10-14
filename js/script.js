@@ -23,6 +23,31 @@ class TodoAdder {
     }
 }
 
+// update todo
+class TodoUpdater {
+    constructor(colName, todoGroup) {
+        this.colName = colName;
+        this.todoGroup = todoGroup;
+    }
+
+    update = function () {
+        firebase.firestore().collection(this.colName).orderBy('created_at').onSnapshot(snapshot => {
+            snapshot.docChanges().forEach(change => {
+                const todo = change.doc.data().todo;
+                const id = change.doc.id;
+
+                // display todo
+                this.todoGroup.innerHTML += `
+                    <li class="todo-item" data-id="${id}">
+                        <p class="todo-text">${todo}</p>
+                        <button class="todo-delete-btn"><i class="fas fa-trash-alt todo-delete-icon"></i></button>
+                    </li>
+                `;
+            });
+        });
+    }
+}
+
 // main
 const main = function () {
     // add todo
@@ -44,7 +69,14 @@ const main = function () {
         // add to database
         const todoAdder = new TodoAdder(colName, newTodo);
         todoAdder.add();
+
+        // reset the form
+        addTodoForm.reset();
     });
+
+    // update todo
+    const todoUpdater = new TodoUpdater(colName, todoGroup);
+    todoUpdater.update();
 };
 main();
 
