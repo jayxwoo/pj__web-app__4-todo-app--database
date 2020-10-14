@@ -7,6 +7,21 @@ const addTodoForm = document.querySelector('.add-todo-form');
 const colName = 'todos';
 
 // ========== script ==========
+// add todo
+class TodoAdder {
+    constructor(colName, newTodo) {
+        this.colName = colName;
+        this.newTodo = newTodo;
+    }
+
+    add = function () {
+        firebase.firestore().collection(this.colName).add(this.newTodo).then(() => {
+            console.log('Todo added!');
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+}
 
 // main
 const main = function () {
@@ -15,17 +30,20 @@ const main = function () {
         e.preventDefault();
         
         // get todo input value
-        const todo = addTodoForm.addTodoInput.value;
-        console.log(todo.trim());
+        const todo = addTodoForm.addTodoInput.value.trim();
 
         // get time
         const created_at = new Date();
-        console.log(created_at);
 
         // create a todo object (that will be saved to database)
         const newTodo = {
-            
+            todo: todo,
+            created_at: created_at
         };
+
+        // add to database
+        const todoAdder = new TodoAdder(colName, newTodo);
+        todoAdder.add();
     });
 };
 main();
