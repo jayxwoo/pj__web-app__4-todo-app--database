@@ -1,10 +1,13 @@
 // ========== imports ==========
 import './default.js';
 
-// ========== references ==========
+// ========== DOM references ==========
 const todoGroup = document.querySelector('.todo-group');
 const addTodoForm = document.querySelector('.add-todo-form');
 const searchTodoForm = document.querySelector('.search-todo-form');
+const darkToggleForm = document.querySelector('.dark-toggle-form');
+
+// ========== global variables ==========
 const colName = 'todos';
 
 // ========== script ==========
@@ -151,6 +154,17 @@ const main = function () {
         // search todo
         const todoSearcher = new TodoSearcher(searchInputValue, todoItems);
         todoSearcher.search();
+    });
+
+    // dark mode
+    darkToggleForm.addEventListener('change', () => {
+        if (darkToggleForm.darkToggle.checked) {
+            document.documentElement.style.setProperty('--main', 'rgba(0, 0, 0, 0.7)');
+            document.documentElement.style.setProperty('--contrast', 'rgba(255, 255, 255, 0.7)');
+        } else if (!darkToggleForm.darkToggle.checked) {
+            document.documentElement.style.setProperty('--main', 'rgba(255, 255, 255, 0.7)');
+            document.documentElement.style.setProperty('--contrast', 'rgba(0, 0, 0, 0.7');
+        };
     });
 };
 main();
