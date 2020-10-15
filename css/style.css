@@ -57,6 +57,7 @@
 .todo-delete-icon { color: var(--main); font-size: 1rem; transition: all ease-in-out 0.3s; }
 .todo-delete-icon:hover { color: var(--red); }
 .todo-delete-btn:active { transform: translate(1px, 1px); }
+.filtered { display: none; }
 
 /* add todo */
 .add-todo-form { width: 100%; display: flex; margin-top: 25px; }

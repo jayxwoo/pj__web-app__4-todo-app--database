@@ -4,6 +4,7 @@ import './default.js';
 // ========== references ==========
 const todoGroup = document.querySelector('.todo-group');
 const addTodoForm = document.querySelector('.add-todo-form');
+const searchTodoForm = document.querySelector('.search-todo-form');
 const colName = 'todos';
 
 // ========== script ==========
@@ -75,6 +76,32 @@ class TodoDeleter {
     }
 }
 
+// serach todo
+class TodoSearcher {
+    constructor(searchInputValue, todoItems) {
+        this.searchInputValue = searchInputValue;
+        this.todoItems = todoItems;
+    }
+
+    search = function () {
+        const noMatchTodoItems = this.todoItems.filter(todoItem => {
+            return !todoItem.innerText.trim().toLowerCase().includes(this.searchInputValue);
+        });
+        
+        noMatchTodoItems.forEach(noMatchTodoItem => {
+            noMatchTodoItem.classList.add('filtered');
+        });
+
+        const matchTodoItems = this.todoItems.filter(todoItem => {
+            return todoItem.innerText.trim().toLowerCase().includes(this.searchInputValue);
+        });
+
+        matchTodoItems.forEach(matchTodoItem => {
+            matchTodoItem.classList.remove('filtered');
+        });
+    }
+}
+
 // main
 const main = function () {
     // update todo
@@ -115,36 +142,20 @@ const main = function () {
             todoDeleter.delete();
         };
     });
+
+    // search todo
+    searchTodoForm.addEventListener('keyup', e => {
+        const searchInputValue = e.target.value.trim().toLowerCase();
+        const todoItems = Array.from(todoGroup.children);
+
+        // search todo
+        const todoSearcher = new TodoSearcher(searchInputValue, todoItems);
+        todoSearcher.search();
+    });
 };
 main();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ========== USING GET METHOD OVER ONSNAPSHOT METHOD ==========
+// ========== USING GET METHOD (OVER ONSNAPSHOT METHOD) ==========
 // // get todo (from database)
 // class TodoGetter {
 //     constructor(colName) {
