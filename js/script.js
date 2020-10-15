@@ -48,9 +48,10 @@ class TodoUpdater {
                     `;
                 } else if (change.type === 'removed') {
                     // delete todo
-                    console.log(todoItems);
                     todoItems.forEach(todoItem => {
-                        // find the item with a particular attribute and delete it
+                        if (todoItem.getAttribute('data-id') === id) {
+                            todoItem.remove();
+                        };
                     });
                 };
             });
@@ -143,23 +144,7 @@ main();
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// ========== USING GET METHOD OVER ONSNAPSHOT METHOD ==========
 // // get todo (from database)
 // class TodoGetter {
 //     constructor(colName) {
