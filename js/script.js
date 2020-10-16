@@ -13,12 +13,18 @@ const colName = 'todos';
 // ========== script ==========
 // add todo
 class TodoAdder {
-    constructor(colName, newTodo) {
+    constructor(colName, todo) {
         this.colName = colName;
-        this.newTodo = newTodo;
+        this.todo = todo;
+        this.created_at = new Date();
+        this.newTodo = {
+            todo: this.todo,
+            created_at: this.created_at
+        };
     }
 
     add = function () {
+        // add to database
         firebase.firestore().collection(this.colName).add(this.newTodo).then(() => {
             console.log('Todo added!');
         }).catch(err => {
@@ -105,6 +111,7 @@ class TodoSearcher {
     }
 }
 
+
 // main
 const main = function () {
     // update todo
@@ -118,20 +125,11 @@ const main = function () {
         // get todo input value
         const todo = addTodoForm.addTodoInput.value.trim();
 
-        // get time
-        const created_at = new Date();
-
-        // create a todo object (that will be saved to database)
-        const newTodo = {
-            todo: todo,
-            created_at: created_at
-        };
-
         // add to database
         if (!todo) {
             alert('Empty todo cannot be added!');
         } else if (todo) {
-            const todoAdder = new TodoAdder(colName, newTodo);
+            const todoAdder = new TodoAdder(colName, todo);
             todoAdder.add();
         };
 
